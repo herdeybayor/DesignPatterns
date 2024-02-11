@@ -1,12 +1,23 @@
 package com.herdeybayor;
 
+import com.herdeybayor.momento.Editor;
+import com.herdeybayor.momento.History;
+
 public class Main {
     public static void main(String[] args) {
-        TaxCalculator calculator = getCalculator();
-        calculator.calculateTax();
-    }
+        var editor = new Editor();
+        var history = new History();
 
-    public static TaxCalculator getCalculator() {
-        return new TaxCalculator2019();
+        editor.setContent("a");
+        history.push(editor.createState());
+
+        editor.setContent("b");
+        history.push(editor.createState());
+
+        editor.setContent("c");
+        editor.restore(history.pop());
+        editor.restore(history.pop());
+
+        System.out.println(editor.getContent());
     }
 }
