@@ -1,17 +1,18 @@
 package com.herdeybayor.momento;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class History {
-    private final List<EditorState> states = new ArrayList<>();
+    private final Stack<EditorState> states = new Stack<>();
 
     public void push(EditorState state) {
-        states.add(state);
+        states.push(state);
     }
 
     public EditorState pop() {
-        var lastIndex = states.size();
-        return states.remove(lastIndex-1);
+        if (states.isEmpty()) {
+            System.out.println("History is empty");
+        }
+        return states.pop();
     }
 }
